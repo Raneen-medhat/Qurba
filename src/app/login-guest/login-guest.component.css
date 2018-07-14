@@ -1,0 +1,44 @@
+
+.headline
+{    
+    background: #df1e33;
+    /* color: #fff; */
+    padding: 30px;
+}
+.headline span
+{
+    font-size: 22px;
+}
+input
+{
+    outline: 0;
+    border: 0;
+}
+img
+{
+    max-height:200px;
+}
+.card
+{
+    min-height: 450px;
+    height: 450px;
+    box-shadow: 0px 1px 10px 1px #e2dada;
+}
+.card-title
+{
+    color: #df1e33;
+}
+.btn
+{
+    background: #636363;
+    color: #fff;
+    padding: 10px;
+    border: none
+}
+.search , .togelBtn
+{
+    display: none
+}
+agm-map {
+    height: 600px;
+  }

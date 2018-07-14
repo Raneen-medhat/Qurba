@@ -1,0 +1,60 @@
+
+<!-- Start of intro div include headline and search input -->
+<div class="headline text-center mb-2 text-white">
+    <h1>Qurba <span>Making Everything Nearby</span> </h1>
+    <input type="text" #input class="p-2 m-2 w-50 search"  [(ngModel)]="term" placeholder="Search by place">
+    <button class="btn" #idBtn (click)="getDeviceId(1234567890 , idBtn ,input ,togelBtn)">Get NearBy places</button>
+</div>
+<!-- End of intro div-->
+<div class="container"> <!-- Container Start-->
+    <!-- Start of Toggel btn to swich between card view and map view -->
+    <div class="btn-group btn-group-toggle mb-2 togelBtn" #togelBtn>
+        <label class="btn" ngbButtonLabel #viewRef (click)="toggelFunc(isMap)">
+            <input type="checkbox" ngbButton  [(ngModel)]="isMap" > Map view
+        </label>
+    </div>
+    <!-- End of Toggel btn -->
+
+    <!-- Start of card view of nearby places -->
+    <div class="row" *ngIf="!isMap">
+        <div class="col-sm-12 col-md-4" *ngFor="let place of nearByPlaces | searchPipe:term ">
+            <div  class="card mb-5 text-center" >
+                <img class="card-img-top" src="{{place.placeGalleryPicturesUrls[0]}}" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">{{place.name.en }}</h4>
+                    <p class="card-text">{{place.shortDescription.en}}</p>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- End of card view -->
+
+    <!-- Start of map view of nearby places -->
+    <!-- this creates a google map on the page with initial lat/lng  -->
+    <agm-map   *ngIf="isMap" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+        <agm-marker  
+            [latitude]="lat" 
+            [longitude]="lng" 
+            [label]="yourPosition">
+        </agm-marker>
+        <!-- this creates a marker on google map represent each nearby place  -->
+        <agm-marker 
+            *ngFor="let m of markers " 
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+            [label]="m.label['en']"
+        >
+            <!-- information about each nearby place appear when the user clicked it's marker  -->
+            <agm-info-window>
+                {{m.label['en']}} <br>
+                {{m.about['en']}}<br>
+                {{m.phoneNo}}
+            </agm-info-window>
+        </agm-marker> 
+    </agm-map>
+    <!-- End of map view -->
+
+</div> <!-- Container End-->
+    
+
+
